@@ -30,8 +30,28 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
         {
             // TODO: 여기에 골드 획득, 파괴 이펙트 생성 등의 코드를 추가할 수 있습니다.
-            Destroy(gameObject);
+                        Die();
         }
+    }
+
+        public void Setup(float health)
+    {
+        maxHealth = health;
+        currentHealth = maxHealth;
+    }
+
+
+        private void Die()
+    {
+        // TODO: 여기에 골드 획득, 파괴 이펙트 생성 등의 코드를 추가할 수 있습니다.
+    if (EnemySpawners.instance != null)
+        {
+            EnemySpawners.instance.EnemyDestroyed();
+        }
+        // 부모 오브젝트가 있다면 부모를 파괴하고, 없다면 자기 자신을 파괴합니다.
+        // 이렇게 하면 적 모델과 체력바 등을 포함하는 부모 오브젝트 전체를 한번에 제거할 수 있습니다.
+        GameObject objectToDestroy = (transform.parent != null) ? transform.parent.gameObject : gameObject;
+        Destroy(objectToDestroy);
     }
 }
 
